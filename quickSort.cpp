@@ -1,12 +1,14 @@
 #include "SinglyLList.h"
 
 // quick sort
-void SinglyLList::quickSort() {
+void SinglyLList::quickSort()
+{
 	ListNode *tail = nullptr;
 	this->head = quickSort(this->head, &tail);
 }
 
-SinglyLList::ListNode* SinglyLList::quickSort(ListNode *head, ListNode **tail) {
+SinglyLList::ListNode* SinglyLList::quickSort(ListNode *head, ListNode **tail)
+{
 	if (head == nullptr || head->next == nullptr) return head;
 	ListNode *pivot = partition(head, &head);
 	if (pivot != head) { // seperate into two list
@@ -22,7 +24,8 @@ SinglyLList::ListNode* SinglyLList::quickSort(ListNode *head, ListNode **tail) {
 	}
 }
 
-SinglyLList::ListNode* SinglyLList::partition(ListNode *list, ListNode **newHead) {
+SinglyLList::ListNode* SinglyLList::partition(ListNode *list, ListNode **newHead)
+{
 	ListNode *list_lessThanOrEq     = nullptr;
 	ListNode *list_lessThanOrEq_end = nullptr;
 	ListNode *list_greaterThan      = nullptr;

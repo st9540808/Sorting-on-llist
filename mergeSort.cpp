@@ -1,7 +1,8 @@
 #include "SinglyLList.h"
 
 // natural mergesort
-void SinglyLList::naturalmergeSort() {
+void SinglyLList::naturalmergeSort()
+{
 	std::array<ListNode *, 31> paritialLists = {nullptr}; // lists of 2^i runs
 	auto const beginIter = paritialLists.begin();
 	auto const endIter = paritialLists.end();
@@ -34,7 +35,8 @@ void SinglyLList::naturalmergeSort() {
 }
 
 // iterative mergesort, it's capable of sorting 2^31-1 nodes (arround 34.36 GB)
-void SinglyLList::imergeSort() {
+void SinglyLList::imergeSort()
+{
 	std::array<ListNode *, 31> paritialLists = {nullptr}; // lists of 2^i nodes
 	auto const beginIter = paritialLists.begin();
 	auto const endIter = paritialLists.end();
@@ -64,11 +66,13 @@ void SinglyLList::imergeSort() {
 }
 
 // recursive mergesort
-void SinglyLList::rmergeSort() {
+void SinglyLList::rmergeSort()
+{
 	this->head = (this->head == nullptr) ? nullptr : rmergeSort(this->head);
 }
 
-SinglyLList::ListNode* SinglyLList::rmergeSort(ListNode *head) {
+SinglyLList::ListNode* SinglyLList::rmergeSort(ListNode *head)
+{
 	if (head->next == nullptr) return head;
 	ListNode *mid = getMiddle(head);
 	ListNode *halfList = mid->next;
@@ -76,7 +80,8 @@ SinglyLList::ListNode* SinglyLList::rmergeSort(ListNode *head) {
 	return merge(rmergeSort(head), rmergeSort(halfList));
 }
 
-SinglyLList::ListNode* SinglyLList::merge(ListNode *left, ListNode *right) {
+SinglyLList::ListNode* SinglyLList::merge(ListNode *left, ListNode *right)
+{
 	if (left == nullptr) return right;
 	else if (right == nullptr) return left;
 	
@@ -96,7 +101,8 @@ SinglyLList::ListNode* SinglyLList::merge(ListNode *left, ListNode *right) {
 	return dummy.next;
 }
 
-SinglyLList::ListNode* SinglyLList::getMiddle(ListNode *head) {
+SinglyLList::ListNode* SinglyLList::getMiddle(ListNode *head)
+{
 	ListNode *slowPtr = head, *fastPtr = head;
 	while (fastPtr->next != nullptr
 	        and fastPtr->next->next != nullptr) {

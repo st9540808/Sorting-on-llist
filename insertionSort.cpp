@@ -1,7 +1,8 @@
 #include "SinglyLList.h"
 
 // insertion sort (stable)
-SinglyLList::ListNode* SinglyLList::insertionSort() { // stable sort
+SinglyLList::ListNode* SinglyLList::insertionSort() // stable sort
+{
 	if (head == nullptr or head->next == nullptr) return head;
 
 	// nextPtr is always one step ahead of currentPtr
@@ -22,7 +23,8 @@ SinglyLList::ListNode* SinglyLList::insertionSort() { // stable sort
 	return head;
 }
 
-SinglyLList::ListNode* SinglyLList::insertionSort_old() { // stable sort
+SinglyLList::ListNode* SinglyLList::insertionSort_old() // stable sort
+{
 	if (head == nullptr or head->next == nullptr) return head;
 
 	// nextPtr is always one step ahead of currentPtr
