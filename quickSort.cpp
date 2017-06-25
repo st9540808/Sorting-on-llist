@@ -1,30 +1,70 @@
 #include "SinglyLList.h"
+#include <string>
 
 // quick sort
 void SinglyLList::quickSort()
 {
 	ListNode *tail = nullptr;
-	this->head = quickSort(this->head, &tail);
+	this->head = this->head != nullptr
+		? quickSort(this->head, &tail) : nullptr;
 }
 
+static int record = 0;
 SinglyLList::ListNode* SinglyLList::quickSort(ListNode *head, ListNode **tail)
 {
-	if (head == nullptr || head->next == nullptr) return head;
-	ListNode *pivot = partition(head, &head);
-	if (pivot != head) { // seperate into two list
-		ListNode *tempPtr = pivot;
-		pivot = pivot->next; tempPtr->next = nullptr;
-		
-		ListNode *left_tail = nullptr;
-		ListNode *left  = quickSort(head, &left_tail);
-		ListNode *right_tail = nullptr;
-		ListNode *right = quickSort(pivot, &right_tail);
-		left_tail->next = right;
-		return left;
+	if (head->next == nullptr) {
+		*tail = head;
+		return head;
+	}
+	
+	// seperate two list
+	ListNode *leftlist = nullptr, *pivot_prev = nullptr;
+	ListNode *pivot = partition(head, &leftlist, &pivot_prev);
+	ListNode *rightlist = pivot->next;
+
+//	int thisrecord = record++;
+//	std::cout << "-------------------------------" << thisrecord << std::endl;
+//	std::cout << "list after partition: "; print(leftlist); //degug
+//	std::cout << "pivot: " << pivot->val << "  pivot_prev: " << 
+//		(pivot_prev == nullptr ? "null" : std::to_string(pivot_prev->val)) << std::endl; //degug
+	
+	if (leftlist != pivot && rightlist != nullptr) { // if left list is not empty
+		pivot_prev->next = nullptr;
+//		std::cout << "rightlist: " << __LINE__ << "|"; print(rightlist); //debug
+//		std::cout << "leftlist: "; print(leftlist); //debug
+		leftlist = quickSort(leftlist, &pivot_prev);
+		rightlist = quickSort(rightlist, tail);
+//		std::cout << "concatnating..." << std::endl; //debug
+		pivot_prev->next = pivot;
+		pivot->next = rightlist;
+//		std::cout << "after concatnate:" << __LINE__ << "|"; print(leftlist); //debug
+//		std::cout << "-------------------------------" << thisrecord << std::endl;
+		return leftlist;
+	} else if (leftlist == pivot) {
+//		std::cout << "rightlist: " << __LINE__ << "|"; print(rightlist); //debug
+//		std::cout << "leftlist: "; print(leftlist); //debug
+		rightlist = quickSort(rightlist, tail);
+//		std::cout << "concatnating..." << std::endl; //debug
+		pivot->next = rightlist;
+//		std::cout << "after concatnate:" << __LINE__ << "|"; print(leftlist); //debug
+//		std::cout << "-------------------------------" << thisrecord << std::endl;
+		return pivot;
+	} else {
+//		std::cout << "rightlist: " << __LINE__ << "|"; print(rightlist); //debug
+//		std::cout << "leftlist: "; print(leftlist); //debug
+		pivot_prev->next = nullptr;
+		leftlist = quickSort(leftlist, &pivot_prev);
+		pivot_prev->next = pivot;
+//		std::cout << "concatnating..." << std::endl; //debug
+//		std::cout << "after concatnate:" << __LINE__ << "|"; print(leftlist); //debug
+//		std::cout << "-------------------------------" << thisrecord << std::endl;
+		return leftlist;
 	}
 }
 
-SinglyLList::ListNode* SinglyLList::partition(ListNode *list, ListNode **newHead)
+// take first element as pivot
+SinglyLList::ListNode* SinglyLList::partition(
+		ListNode *list, ListNode **newHead, ListNode **pivot_prev)
 {
 	ListNode *list_lessThanOrEq     = nullptr;
 	ListNode *list_lessThanOrEq_end = nullptr;
@@ -61,5 +101,6 @@ SinglyLList::ListNode* SinglyLList::partition(ListNode *list, ListNode **newHead
 	if (list_greaterThan != nullptr) {
 		list_greaterThan_end->next = nullptr;
 	}
+	*pivot_prev = list_lessThanOrEq_end;
 	return pivot;
 }

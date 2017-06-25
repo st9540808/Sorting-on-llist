@@ -41,7 +41,7 @@ public:
 	// quick sort
 	void quickSort();
 	ListNode* quickSort(ListNode *, ListNode **);
-	ListNode* partition(ListNode *, ListNode **); 
+	ListNode* partition(ListNode *, ListNode **, ListNode **);
 
 	// merge sort and its variation
 	void naturalmergeSort(); // natural mergesort
