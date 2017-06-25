@@ -1,7 +1,7 @@
 #include "SinglyLList.h"
 #include <string>
 
-// quick sort
+// quick sort (also get the tail of sorted list)
 void SinglyLList::quickSort()
 {
 	ListNode *tail = nullptr;
@@ -15,16 +15,18 @@ SinglyLList::ListNode* SinglyLList::quickSort(ListNode *head, ListNode **tail)
 		return head;
 	}
 	
-	// seperate two list
+	// get index of rightlist and leftlist
 	ListNode *leftlist = nullptr, *pivot_prev = nullptr;
 	ListNode *pivot = partition(head, &leftlist, &pivot_prev);
 	ListNode *rightlist = pivot->next;
 
+	// there is always three sets of list,
+	// {1.leftlist(less or equal than pivot)}, {2.pivot}, {3.rightlist(greater than pivot)}
 	if (leftlist != pivot && rightlist != nullptr) { // if left list is not empty
 		pivot_prev->next = nullptr;
 		rightlist = quickSort(rightlist, tail);
 		leftlist = quickSort(leftlist, &pivot_prev);
-		pivot_prev->next = pivot;
+		pivot_prev->next = pivot; // concatenate three set of list
 		pivot->next = rightlist;
 		return leftlist;
 	} else if (rightlist == nullptr) { // right list is empty
