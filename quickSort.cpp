@@ -30,35 +30,37 @@ SinglyLList::ListNode* SinglyLList::quickSort(ListNode *head, ListNode **tail)
 	
 	if (leftlist != pivot && rightlist != nullptr) { // if left list is not empty
 		pivot_prev->next = nullptr;
-//		std::cout << "rightlist: " << __LINE__ << "|"; print(rightlist); //debug
+//		std::cout << "rightlist: " << "case1(both ends not empty)" << "|"; print(rightlist); //debug
 //		std::cout << "leftlist: "; print(leftlist); //debug
-		leftlist = quickSort(leftlist, &pivot_prev);
 		rightlist = quickSort(rightlist, tail);
+		leftlist = quickSort(leftlist, &pivot_prev);
 //		std::cout << "concatnating..." << std::endl; //debug
 		pivot_prev->next = pivot;
 		pivot->next = rightlist;
-//		std::cout << "after concatnate:" << __LINE__ << "|"; print(leftlist); //debug
+//		std::cout << "after concatnate:" << "case1(both ends not epmty)" << "|"; print(leftlist); //debug
 //		std::cout << "-------------------------------" << thisrecord << std::endl;
 		return leftlist;
-	} else if (leftlist == pivot) {
-//		std::cout << "rightlist: " << __LINE__ << "|"; print(rightlist); //debug
-//		std::cout << "leftlist: "; print(leftlist); //debug
-		rightlist = quickSort(rightlist, tail);
-//		std::cout << "concatnating..." << std::endl; //debug
-		pivot->next = rightlist;
-//		std::cout << "after concatnate:" << __LINE__ << "|"; print(leftlist); //debug
-//		std::cout << "-------------------------------" << thisrecord << std::endl;
-		return pivot;
-	} else {
-//		std::cout << "rightlist: " << __LINE__ << "|"; print(rightlist); //debug
+	} else if (rightlist == nullptr) {
+//		std::cout << "rightlist: " << "case3(rightlist empty)" << "|"; print(rightlist); //debug
 //		std::cout << "leftlist: "; print(leftlist); //debug
 		pivot_prev->next = nullptr;
 		leftlist = quickSort(leftlist, &pivot_prev);
 		pivot_prev->next = pivot;
+		*tail = pivot;
 //		std::cout << "concatnating..." << std::endl; //debug
-//		std::cout << "after concatnate:" << __LINE__ << "|"; print(leftlist); //debug
+//		std::cout << "after concatnate:" << "case3(rightlist empty)" << "|"; print(leftlist); //debug
 //		std::cout << "-------------------------------" << thisrecord << std::endl;
 		return leftlist;
+	} else { // left list is empty
+//		std::cout << "rightlist: " << "case2(leftlist empty)" << "|"; print(rightlist); //debug
+//		std::cout << "leftlist: "; print(leftlist); //debug
+		pivot->next = nullptr;
+		rightlist = quickSort(rightlist, tail);
+//		std::cout << "concatnating..." << std::endl; //debug
+		pivot->next = rightlist;
+//		std::cout << "after concatnate:" << "case2(leftlist empty)" << "|"; print(leftlist); //debug
+//		std::cout << "-------------------------------" << thisrecord << std::endl;
+		return pivot;
 	}
 }
 

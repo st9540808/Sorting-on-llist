@@ -3,10 +3,14 @@
 
 int main()
 {
-	SinglyLList list(10);
-	list.print();
-	list.quickSort();
-	list.print();
+	for (int i = 0; i < 100; ++i) {
+		SinglyLList list(i);
+		list.quickSort();
+		if (!list.isSorted()) {
+			std::cout << "error in: " << std::endl;
+			list.print();
+		}
+	}
 
 	return 0;
 }
