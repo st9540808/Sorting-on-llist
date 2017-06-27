@@ -1,8 +1,8 @@
-probability_rms = fopen('prob_insertionSortFaster_data_rms', 'r');
+probability_rms = fopen('.prob_insertionSortFaster_data_rms', 'r');
 prob_rms = fscanf(probability_rms, '%d,%f', [2, Inf]);
-probability_ims = fopen('prob_insertionSortFaster_data_ims', 'r');
+probability_ims = fopen('.prob_insertionSortFaster_data_ims', 'r');
 prob_ims = fscanf(probability_ims, '%d,%f', [2, Inf]);
-probability_qs = fopen('prob_insertionSortFaster_data_qs', 'r');
+probability_qs = fopen('.prob_insertionSortFaster_data_qs', 'r');
 prob_qt = fscanf(probability_qs, '%d,%f', [2, Inf]);
 
 fclose(probability_rms);

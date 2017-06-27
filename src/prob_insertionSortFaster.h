@@ -8,9 +8,9 @@ void prob_insertionSortFaster()
 	std::ofstream probabilityRms;
 	std::ofstream probabilityIms;
 	std::ofstream probabilityQs;
-	probabilityRms.open("./plot/prob_insertionSortFaster_data_rms");
-	probabilityIms.open("./plot/prob_insertionSortFaster_data_ims");
-	probabilityQs.open("./plot/prob_insertionSortFaster_data_qs");
+	probabilityRms.open("./plot/.prob_insertionSortFaster_data_rms");
+	probabilityIms.open("./plot/.prob_insertionSortFaster_data_ims");
+	probabilityQs.open("./plot/.prob_insertionSortFaster_data_qs");
 
 	for (int list_size = 1; list_size <= 100; ++list_size) {
 		int timesFaster1 = 0;
